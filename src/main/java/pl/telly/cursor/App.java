@@ -1,13 +1,17 @@
 package pl.telly.cursor;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@SpringBootApplication
+@EnableScheduling
+@EnableAsync
+@ConfigurationPropertiesScan
 public class App {
-
-    public String greet(String name) {
-        return "Hello, " + name + "!";
-    }
-
     public static void main(String[] args) {
-        App app = new App();
-        System.out.println(app.greet("World"));
+        SpringApplication.run(App.class, args);
     }
 }

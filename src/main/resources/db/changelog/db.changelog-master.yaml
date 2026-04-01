@@ -1,0 +1,96 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-init
+      author: cursor
+      changes:
+        - createTable:
+            tableName: fuel_product
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_pl
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name_en
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: symbol
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: fuel_price
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_symbol
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: effective_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publish_from
+                  type: TIMESTAMPTZ
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_value
+                  type: NUMERIC(12,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location_name
+                  type: TEXT
+              - column:
+                  name: location_symbol
+                  type: TEXT
+              - column:
+                  name: unit
+                  type: TEXT
+
+        - addForeignKeyConstraint:
+            baseTableName: fuel_price
+            baseColumnNames: product_id
+            referencedTableName: fuel_product
+            referencedColumnNames: id
+            constraintName: fk_fuel_price_product
+
+        - addUniqueConstraint:
+            tableName: fuel_price
+            columnNames: product_id, effective_date
+            constraintName: uq_fuel_price_product_date
+
+        - createIndex:
+            tableName: fuel_price
+            indexName: idx_fuel_price_product_date
+            columns:
+              - column:
+                  name: product_id
+              - column:
+                  name: effective_date
+

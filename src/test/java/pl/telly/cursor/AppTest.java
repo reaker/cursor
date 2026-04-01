@@ -1,13 +1,11 @@
 package pl.telly.cursor;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 class AppTest {
-
     @Test
-    void greetReturnsExpectedMessage() {
-        App app = new App();
-        assertEquals("Hello, World!", app.greet("World"));
+    void contextLoads() {
     }
 }
