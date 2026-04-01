@@ -1,0 +1,36 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: cursor
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/fuelapp}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+orlen:
+  base-url: ${ORLEN_BASE_URL:https://tool.orlen.pl}
+  schedule:
+    cron: ${ORLEN_CRON:0 0 6 * * *}
+    zone: ${ORLEN_CRON_ZONE:Europe/Warsaw}
+  bootstrap:
+    enabled: ${ORLEN_BOOTSTRAP_ENABLED:true}
+    initial-delay: ${ORLEN_BOOTSTRAP_INITIAL_DELAY:2s}
+    from: ${ORLEN_BOOTSTRAP_FROM:2010-01-01}
+    backfill-days: ${ORLEN_BOOTSTRAP_BACKFILL_DAYS:7}
